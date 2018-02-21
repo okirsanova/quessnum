@@ -18,12 +18,14 @@ public class Main {
 
         System.out.println(randNum);
 
-        for (int i=0; i < 10; i++) {
+
+        for (int i=0; i < 5; i++)
+        {
             System.out.println("Try # " + (i + 1));
 
-            int userNum = scanner.nextInt();
+            int userNum = scanner.nextInt();{
 
-            System.out.println(userNum);
+            System.out.println(userNum);}
 
             if ((randNum) < (userNum)) {
 
@@ -34,12 +36,18 @@ public class Main {
             } else if ((randNum) == (userNum)) {
 
                 System.out.println("That is My Number!!!");
-                break;
-                //{
+                break; }
 
-                System.out.println("Loooser!!!");
-                System.out.println("Wanna play again?");
-
-            }//
         }
-}}
+        for (int i=0; i < 5; i++)
+            do
+        {
+            System.out.println("Loooser!!!");
+            System.out.println("Wanna play again?");
+            break;
+        }
+            while (i > 4);
+        
+    }}
+
+
