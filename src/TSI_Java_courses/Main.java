@@ -12,7 +12,7 @@ public class Main {
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
 
-    }
+
         do
             System.out.println("Wanna play?");
             String answer2 = scanner.next();
@@ -33,11 +33,11 @@ public class Main {
 
                     System.out.println(randNum);
                 }
-        {
-            int userNum = scanner.nextInt();
-            int randNum = random.nextInt(100) + 1;
-        }
-                for {(int i = 0; i < 5; i++)
+
+                int userNum = scanner.nextInt();
+                int randNum = random.nextInt(100) + 1;
+
+                for (int i = 0; i < 5; i++) {
                     System.out.println("Try # " + (i + 1));
                     {
                         System.out.println(userNum);
@@ -54,7 +54,7 @@ public class Main {
 
                         System.out.println("That is My Number!!!");
                         break;
-                    }}
+
 
 
 
