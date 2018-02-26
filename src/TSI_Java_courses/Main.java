@@ -16,28 +16,32 @@ public class Main {
             System.out.println("I'm thinking of a number from 1 to 100. Try to guess it!");
 
             int randNum = random.nextInt(100) + 1;
-            System.out.println("Number is " + randNum);
+            System.out.println("Secret Number is " + randNum);
 
-            for (int i = 0; i < 5; i++) {
-                System.out.println("Try # " + (i + 1));
+            for (int i = 1; i <= 10; i++) {
+                System.out.println("Try # " + i );
 
                 int userNum = scanner.nextInt();
-
                 System.out.println(userNum);
 
-                if ((randNum) < (userNum)) {
+                if (randNum < userNum) {
 
-                    System.out.println("My Number is Higher");
-                } else if ((randNum) > (userNum)) {
+                    System.out.println("My Number is Higher");}
 
-                    System.out.println("My Number is Lower");
-                } else if ((randNum) == (userNum)) {
+                else if (randNum > userNum) {
+
+                    System.out.println("My Number is Lower"); }
+
+                if (randNum == userNum) {
 
                     System.out.println("That is My Number!!!");
-                    break;
-                }
+                    break; }
+
+                if (i == 10) {
+                    System.out.println("Looser! My number was " + userNum); }
 
             }
+
             System.out.println("Once more?");
             answer = scanner.next();
             System.out.println(answer);
