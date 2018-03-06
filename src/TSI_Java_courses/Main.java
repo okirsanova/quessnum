@@ -12,8 +12,7 @@ public class Main {
     static Random random = new Random();
 
     public static void main(String[] args) {
-        long t = System.currentTimeMillis();
-        System.out.println("Current time is " + t/1000/60/60/24/365);
+         // System.out.println("Current time is " + time/1000/60/60/24/365);
         ArrayList<GameResult> leaderboard = new ArrayList<>();  // tipa sunduk
 
         // try
@@ -25,8 +24,8 @@ public class Main {
             GameResult r = doGame(name);
             if (r != null) {
                 leaderboard.add(r);
-                System.out.println("Name: " + r.userName2);
-                System.out.println("Att#: " + r.attempts);
+                System.out.println("Name: " + r.userName2); // not actual
+                System.out.println("Att#: " + r.attempts); // not actual
             }
             System.out.println("Once more?");
             answer = scanner.next();
@@ -36,7 +35,8 @@ public class Main {
         System.out.println("Winner chart:");
 
         for (GameResult r2 : leaderboard) {
-            System.out.println(r2.userName2 + "\t" + r2.attempts);
+            System.out.println(r2.userName2 + "\t" + r2.attempts + " \t" + r2.timeResult/1000);
+
         }
 
         // catch no such element exception e
@@ -47,6 +47,7 @@ public class Main {
 
     private static GameResult doGame(String userName) {   // nuzhen parametr, peredajutsja po porjadku
         System.out.println("Hello " + userName);
+        long time1 = System.currentTimeMillis();
         System.out.println("I'm thinking of a number from 1 to 100. Try to guess it!");
 
         int randNum = random.nextInt(100) + 1;
@@ -71,9 +72,10 @@ public class Main {
             }
 
             if (randNum == userNum) {
-
+                long time2 = System.currentTimeMillis();
                 System.out.println("That is My Number! You won in " + i + " attempts");
                 result.attempts = i;
+                result.timeResult = (time2 - time1);
                 return result;
             }
 
