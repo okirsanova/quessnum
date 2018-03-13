@@ -1,22 +1,20 @@
 package TSI_Java_courses;
 
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class Main {
 
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
+    static File leaderBoardFile = new File("leader-board.txt");
 
     public static void main(String[] args) {
-         // System.out.println("Current time is " + time/1000/60/60/24/365);
         ArrayList<GameResult> leaderboard = new ArrayList<>();  // tipa sunduk
-
-        // try
-
+        loadLeaderBoard(leaderboard);
         String answer;
         do {
             System.out.println("What is your name?");
@@ -34,15 +32,47 @@ public class Main {
         } while (answer.equals("yes"));
         System.out.println("Winner chart:");
 
-        for (GameResult r2 : leaderboard) {
-            System.out.println(r2.userName2 + "\t Age: " + r2.userAge2 +  "\t Att: " + r2.attempts + " \t Time: " + r2.timeResult/1000);
-
-        }
-
-        // catch no such element exception e
-
+        saveleaderBoard(leaderboard);
+        leaderboard.sort(Comparator
+                .<GameResult>comparingLong(g -> g.attempts)
+                .<GameResult>thenComparingLong(g -> g.timeResult));
+        PrintLeaderBoard(leaderboard);
         System.out.println("Good bye!");
+    }
 
+    private static void loadLeaderBoard(ArrayList<GameResult> leaderboard) {
+        if (!leaderBoardFile.exists()) {
+            return;      //ne chitatj ne sushestvujushij file chtoby nebylo oshybki
+        }
+        try (Scanner in = new Scanner(leaderBoardFile)) {
+            while (in.hasNext()) {
+                GameResult r = new GameResult();
+                r.userName2 = in.next();
+                r.userAge2 = in.next();
+                r.attempts = in.nextInt();
+                r.timeResult = in.nextLong();
+                leaderboard.add(r);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Can't read a file for some reason");
+        }
+    }
+
+    private static void saveleaderBoard(ArrayList<GameResult> leaderboard) {
+        try (PrintWriter out = new PrintWriter(leaderBoardFile)) {
+            for (GameResult r : leaderboard) {
+                out.printf("%-10s %s %d %d \n", r.userName2, r.userAge2, r.attempts, r.timeResult);
+            }
+        } catch (IOException e) {
+            System.out.println("Something wrong with file writing");
+        }
+    }
+
+    private static void PrintLeaderBoard(ArrayList<GameResult> leaderboard) {
+        for (GameResult r2 : leaderboard) {
+            System.out.printf("%-25s \t Age:%s \t Att:%d \t Time:%.2f sec\n", r2.userName2, r2.userAge2, r2.attempts, r2.timeResult / 1000.0);
+        }
     }
 
     private static GameResult doGame(String userName, String userAge) {   // nuzhen parametr, peredajutsja po porjadku
@@ -86,23 +116,6 @@ public class Main {
         return null;
     }
 
-//    static String askAnswer() {
-//        for (; ; ) {
-//            try {
-//                String askAnswer = scanner.next();
-//                if (askAnswer.equalsIgnoreCase("YES")) {
-//                    System.out.println("Try again!");
-//                }
-//                if (askAnswer.equalsIgnoreCase("NO")) {
-//                    System.out.println("Bye");
-//                }
-//            } catch (InputMismatchException e) {
-//                scanner.next();
-//                System.out.println("Type an answer YES or NO!");
-//            }
-//        }
-//    }
-
     static String askAnswer() {
         for (; ; ) {
             try {
@@ -133,10 +146,6 @@ public class Main {
                 scanner.next();
                 System.out.println("Only numbers, please!");
             }
-//            catch (InputMismatchException | NoSuchElementException e) {
-//                            scanner.next();
-//                            System.out.println("Only numbers, please!");
-//                        }
         }
     }
 }
