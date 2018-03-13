@@ -21,11 +21,11 @@ public class Main {
         do {
             System.out.println("What is your name?");
             String name = scanner.next();
-            GameResult r = doGame(name);
+            System.out.println("What is your age?");
+            String age = scanner.next();
+            GameResult r = doGame(name, age);
             if (r != null) {
                 leaderboard.add(r);
-                System.out.println("Name: " + r.userName2); // not actual
-                System.out.println("Att#: " + r.attempts); // not actual
             }
             System.out.println("Once more?");
             answer = scanner.next();
@@ -35,7 +35,7 @@ public class Main {
         System.out.println("Winner chart:");
 
         for (GameResult r2 : leaderboard) {
-            System.out.println(r2.userName2 + "\t" + r2.attempts + " \t" + r2.timeResult/1000);
+            System.out.println(r2.userName2 + "\t Age: " + r2.userAge2 +  "\t Att: " + r2.attempts + " \t Time: " + r2.timeResult/1000);
 
         }
 
@@ -45,8 +45,9 @@ public class Main {
 
     }
 
-    private static GameResult doGame(String userName) {   // nuzhen parametr, peredajutsja po porjadku
+    private static GameResult doGame(String userName, String userAge) {   // nuzhen parametr, peredajutsja po porjadku
         System.out.println("Hello " + userName);
+        System.out.println("You are " + userAge + " years old.");
         long time1 = System.currentTimeMillis();
         System.out.println("I'm thinking of a number from 1 to 100. Try to guess it!");
 
@@ -55,6 +56,7 @@ public class Main {
 
         GameResult result = new GameResult();
         result.userName2 = userName;
+        result.userAge2 = userAge;
 
         for (int i = 1; i <= 10; i++) {
             System.out.println("Try # " + i);
