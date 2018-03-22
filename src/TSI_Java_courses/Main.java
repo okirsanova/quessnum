@@ -1,6 +1,7 @@
 package TSI_Java_courses;
 
 
+import java.awt.List;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,10 +33,10 @@ public class Main {
         } while (answer.equals("yes"));
         System.out.println("Winner chart:");
 
-        saveleaderBoard(leaderboard);
         leaderboard.sort(Comparator
                 .<GameResult>comparingLong(g -> g.attempts)
                 .<GameResult>thenComparingLong(g -> g.timeResult));
+        saveleaderBoard(leaderboard);
         PrintLeaderBoard(leaderboard);
         System.out.println("Good bye!");
     }
@@ -70,10 +71,19 @@ public class Main {
     }
 
     private static void PrintLeaderBoard(ArrayList<GameResult> leaderboard) {
-        for (GameResult r2 : leaderboard) {
-            System.out.printf("%-25s \t Age:%s \t Att:%d \t Time:%.2f sec\n", r2.userName2, r2.userAge2, r2.attempts, r2.timeResult / 1000.0);
-        }
+        leaderboard.stream()
+                .limit(5)
+                .forEach(gameResult -> {
+                    System.out.printf("%-25s \t Age:%s \t Att:%d \t Time:%.2f sec\n", gameResult.userName2, gameResult.userAge2, gameResult.attempts, gameResult.timeResult / 1000.0);
+                });
+
     }
+
+//        for (GameResult r2 : leaderboard) {
+//            System.out.printf("%-25s \t Age:%s \t Att:%d \t Time:%.2f sec\n", r2.userName2, r2.userAge2, r2.attempts, r2.timeResult / 1000.0);
+//        }
+//
+//    }
 
     private static GameResult doGame(String userName, String userAge) {   // nuzhen parametr, peredajutsja po porjadku
         System.out.println("Hello " + userName);
